@@ -36,6 +36,7 @@ https://github.com/KuiLiangLin/HSPICE_2order_opamp/blob/master/Waveform_CC.jpg
 https://github.com/KuiLiangLin/HSPICE_2order_opamp/blob/master/Waveform_ZR.jpg
 
 迴轉率 --> SR約為30v/us左右，與計算min{I5/Cc , (I7-I5)/CL}所得結果相同。
+
 https://github.com/KuiLiangLin/HSPICE_2order_opamp/blob/master/Waveform_SR.jpg
 
 
