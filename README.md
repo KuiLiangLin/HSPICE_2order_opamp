@@ -1,14 +1,11 @@
 # HSPICE_2order_opamp
 
-1. Circuit --> M3、M4為使M1、M2有固定電流比例的OP對，M1、M2為第一階放大器，M5為用M10偏壓的電流源，M6、M7為第二階放大器，其中密勒補償電容跨於M6的source與drain端。
+1. Circuit :
 
-    https://github.com/KuiLiangLin/HSPICE_2order_opamp/blob/master/Circuit.jpg
+    M3、M4為使M1、M2有固定電流比例的OP對，M1、M2為第一階放大器，M5為用M10偏壓的電流源，M6、M7為第二階放大器，其中密勒補償電容跨於M6的source與drain端。
+    ![image](https://github.com/KuiLiangLin/HSPICE_2order_opamp/blob/master/Circuit.jpg)
 
-    https://github.com/KuiLiangLin/HSPICE_2order_opamp/blob/master/Circuit.png
-
-    
-
-2. Design Flow
+2. Design Flow:
 
    設計SR>30V/us，Vip-Vin=1V~2V，unit-gain bandwidth>4MHz，phase margin>600，voltage gain>70dB。
    VDD=3V，Cc=3pF，CL=10pF。
@@ -23,29 +20,22 @@
 
    2.5 gain=gm1(ro2//ro4)gm6(ro6//ro7)
 
-3. Result
+3. Result:
 
-未頻率補償
+   未頻率補償 --> PM<0為不穩定系統，可能在相位等於180o之頻率點產生震盪現象。
+   ![image](https://github.com/KuiLiangLin/HSPICE_2order_opamp/blob/master/Waveform.jpg)
 
-https://github.com/KuiLiangLin/HSPICE_2order_opamp/blob/master/Waveform.jpg
+   加入密勒電容 --> 使極點分離，進而使零點頻率的特徵維持久一點，故可使第二極點往更高頻移動，延緩相位變化。
+   ![image](https://github.com/KuiLiangLin/HSPICE_2order_opamp/blob/master/Waveform_CC.jpg)
 
-加入密勒電容 --> 使極點分離，進而使零點頻率的特徵維持久一點，故可使第二極點往更高頻移動，延緩相位變化。
+   加入零點電阻 --> 使轉移函數的零點與極點相消，使相位曲線的下降幅度趨緩。
+   ![image](https://github.com/KuiLiangLin/HSPICE_2order_opamp/blob/master/Waveform_ZR.jpg)
 
-https://github.com/KuiLiangLin/HSPICE_2order_opamp/blob/master/Waveform_CC.jpg
+   迴轉率 --> SR約為30v/us左右，與計算min{I5/Cc , (I7-I5)/CL}所得結果相同。
+   ![image](https://github.com/KuiLiangLin/HSPICE_2order_opamp/blob/master/Waveform_SR.jpg)
 
-加入零點電阻 --> 使轉移函數的零點與極點相消，使相位曲線的下降幅度趨緩。
+4. Conclusion:
 
-https://github.com/KuiLiangLin/HSPICE_2order_opamp/blob/master/Waveform_ZR.jpg
+加入密勒電容補償穩定度是一個蠻有效的方法，在一開始沒加密勒補償電容的相位與增益圖中可看到此二階OP電路的系統屬於不穩定系統，在加入密勒補償電容之後可看出第一極點從100kHz移動到1kHz，且第二極點從10MHz移動到100MHz，並使phase margin從-8o提升到60o。
 
-迴轉率 --> SR約為30v/us左右，與計算min{I5/Cc , (I7-I5)/CL}所得結果相同。
-
-https://github.com/KuiLiangLin/HSPICE_2order_opamp/blob/master/Waveform_SR.jpg
-
-
-
-
-
-
-
-
-
+加入零點電阻並適當選擇電阻值使第二極點與零點電阻產生的零點相消，在加入零點電阻後由於第二極點被相消，故相位在-90o持續距離比較長，進而提高系統的phase margin與穩定度。
