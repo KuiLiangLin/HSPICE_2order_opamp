@@ -22,20 +22,20 @@
 
 3. Result:
 
-   未頻率補償 --> PM<0為不穩定系統，可能在相位等於180o之頻率點產生震盪現象。
+   3.1 未頻率補償 --> 圖中有用白線標記0dB所對應的相位為188o，PM<0為不穩定系統，可能在相位等於180o之頻率點產生震盪現象。相位部分，1MHz附近稍為的抖動是因為經過零點相位會+90o/decade，但由於還未頻率補償，每個極點的位置很接近，故相位持續-90o　/decade。   
    ![image](https://github.com/KuiLiangLin/HSPICE_2order_opamp/blob/master/Waveform.jpg)
 
-   加入密勒電容 --> 使極點分離，進而使零點頻率的特徵維持久一點，故可使第二極點往更高頻移動，延緩相位變化。
+   3.2 加入密勒電容 --> 使極點分離，進而使零點頻率的特徵維持久一點，故可使第二極點往更高頻移動，延緩相位變化。圖中有用白線標記0dB所對應的相位為127o，PM=53o為穩定系統。   
    ![image](https://github.com/KuiLiangLin/HSPICE_2order_opamp/blob/master/Waveform_CC.jpg)
 
-   加入零點電阻 --> 使轉移函數的零點與極點相消，使相位曲線的下降幅度趨緩。
+   3.3 加入零點電阻 --> 使轉移函數的零點與極點相消，使相位曲線的下降幅度趨緩。
    ![image](https://github.com/KuiLiangLin/HSPICE_2order_opamp/blob/master/Waveform_ZR.jpg)
 
-   迴轉率 --> SR約為30v/us左右，與計算min{I5/Cc , (I7-I5)/CL}所得結果相同。
+   3.4 迴轉率 -->輸入步階函數並用暫態響應所得到的SR，右邊為局部放大，從圖可知SR約為30v/us左右，與計算min{I5/Cc , (I7-I5)/CL}所得結果相同。
    ![image](https://github.com/KuiLiangLin/HSPICE_2order_opamp/blob/master/Waveform_SR.jpg)
 
 4. Conclusion:
 
-加入密勒電容補償穩定度是一個蠻有效的方法，在一開始沒加密勒補償電容的相位與增益圖中可看到此二階OP電路的系統屬於不穩定系統，在加入密勒補償電容之後可看出第一極點從100kHz移動到1kHz，且第二極點從10MHz移動到100MHz，並使phase margin從-8o提升到60o。
+   加入密勒電容補償穩定度是一個蠻有效的方法，在一開始沒加密勒補償電容的相位與增益圖中可看到此二階OP電路的系統屬於不穩定系統，在加入密勒補償電容之後可看出第一極點從100kHz移動到1kHz，且第二極點從10MHz移動到100MHz，並使phase margin從-8o提升到60o。
 
-加入零點電阻並適當選擇電阻值使第二極點與零點電阻產生的零點相消，在加入零點電阻後由於第二極點被相消，故相位在-90o持續距離比較長，進而提高系統的phase margin與穩定度。
+   加入零點電阻並適當選擇電阻值使第二極點與零點電阻產生的零點相消，在加入零點電阻後由於第二極點被相消，故相位在-90o持續距離比較長，進而提高系統的phase margin與穩定度。
